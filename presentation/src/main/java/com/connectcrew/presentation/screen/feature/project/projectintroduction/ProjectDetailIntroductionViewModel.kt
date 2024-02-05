@@ -34,6 +34,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import java.io.IOException
 import java.time.ZonedDateTime
 import javax.inject.Inject
@@ -83,6 +84,7 @@ class ProjectDetailIntroductionViewModel @Inject constructor(
     val navigateToProjectManagementDialog: EventFlow<Unit> = _navigateToProjectManagementDialog
 
     fun setProjectId(projectId: Long) {
+        Timber.d("setProjectId| projectId: ${projectId}")
         savedStateHandle.set(KEY_PROJECT_ID, projectId)
     }
 
@@ -174,6 +176,7 @@ class ProjectDetailIntroductionViewModel @Inject constructor(
 
     companion object {
         private const val KEY_PROJECT_ID = "project_id"
+        private const val KEY_PROJECT_LEADER_ID = "project_leader_id"
     }
 }
 

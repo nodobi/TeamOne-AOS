@@ -10,6 +10,7 @@ import com.connectcrew.domain.util.asResult
 import com.connectcrew.presentation.R
 import com.connectcrew.presentation.model.project.ProjectFeedDetail
 import com.connectcrew.presentation.model.project.ProjectFeedDetailCategory
+import com.connectcrew.presentation.model.project.ProjectMemberKickReason
 import com.connectcrew.presentation.model.project.toSummary
 import com.connectcrew.presentation.screen.base.BaseViewModel
 import com.connectcrew.presentation.util.delegate.ProjectFeedViewModelDelegate
@@ -123,6 +124,7 @@ class ProjectDetailContainerViewModel @Inject constructor(
                         is ApiResult.Success -> {
                             _navigateToProjectReportCompletedDialog.emit(Unit)
                         }
+
                         is ApiResult.Error -> when (it.exception) {
                             is IOException -> setMessage(R.string.network_error)
                             is TeamOneException -> setMessage(it.exception.message.toString())
@@ -140,12 +142,13 @@ class ProjectDetailContainerViewModel @Inject constructor(
                 .onEach { setLoading(it is ApiResult.Loading) }
                 .collect {
                     Timber.e("deleteAndNavigateToBack $it")
-                    when(it) {
+                    when (it) {
                         is ApiResult.Loading -> return@collect
                         is ApiResult.Success -> {
                             deleteProjectFeedAction(projectFeedDetail?.toSummary(), ZonedDateTime.now())
                             _navigateToBack.emit(Unit)
                         }
+
                         is ApiResult.Error -> when (it.exception) {
                             is IOException -> setMessage(R.string.network_error)
                             is TeamOneException -> setMessage(it.exception.message.toString())

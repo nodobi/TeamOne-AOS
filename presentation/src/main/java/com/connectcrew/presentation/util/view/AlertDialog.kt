@@ -82,6 +82,40 @@ fun AlertDialog.dialogViewBuilder(
     }
 }
 
+// TODO:: 민진님한테 검토받기
+fun AlertDialog.dialogViewBuilder(
+    @StringRes titleRes: Int,
+    titleResArg: Any? = null,
+    @StringRes descriptionRes: Int,
+    descriptionResArg: Any? = null,
+    @StringRes positiveButtonTextRes: Int = R.string.common_confirm,
+    @StringRes negativeButtonTextRes: Int = R.string.common_cancel,
+    @ColorRes strokeColor: Int? = null,
+    @ColorRes iconTint: Int = R.color.color_00aee4,
+    @DrawableRes iconDrawableRes: Int = R.drawable.ic_check,
+    isNegativeButtonVisible: Boolean = true,
+    onClickNegativeButton: (Unit) -> Unit = {},
+    onClickPositiveButton: (Unit) -> Unit = {},
+): AlertDialog {
+    return this.apply {
+        setView(
+            setDialogView(
+                alertDialog = this,
+                title = if(titleResArg == null) context.getString(titleRes) else context.getString(titleRes, titleResArg),
+                description = if(descriptionResArg == null) context.getString(descriptionRes) else context.getString(descriptionRes, descriptionResArg),
+                positiveButtonText = context.getString(positiveButtonTextRes),
+                negativeButtonText = context.getString(negativeButtonTextRes),
+                strokeColor = strokeColor ?: iconTint,
+                iconTint = iconTint,
+                iconDrawableRes = iconDrawableRes,
+                isNegativeButtonVisible = isNegativeButtonVisible,
+                onClickNegativeButton = onClickNegativeButton,
+                onClickPositiveButton = onClickPositiveButton
+            )
+        )
+    }
+}
+
 private fun setDialogView(
     alertDialog: AlertDialog,
     title: String,

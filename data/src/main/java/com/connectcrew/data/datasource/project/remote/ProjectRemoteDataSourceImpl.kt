@@ -1,8 +1,12 @@
 package com.connectcrew.data.datasource.project.remote
 
+import com.connectcrew.data.model.project.KickReason
 import com.connectcrew.data.model.project.ProjectFeed
+import com.connectcrew.data.model.project.ProjectMember
 import com.connectcrew.data.model.project.RequestRecruitStatus
 import com.connectcrew.data.model.project.asEntity
+import com.connectcrew.data.model.user.User
+import com.connectcrew.data.model.user.asEntity
 import com.connectcrew.data.service.ProjectApi
 import com.connectcrew.data.util.CompressorUtil
 import com.connectcrew.data.util.FileUtil
@@ -11,9 +15,12 @@ import com.connectcrew.domain.usecase.project.entity.ProjectFeedDetailEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectFeedEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectFeedLikeInfoEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectInfoContainerEntity
+import com.connectcrew.domain.usecase.project.entity.ProjectMemberEntity
+import com.connectcrew.domain.usecase.sign.entity.UserEntity
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
+import retrofit2.http.Path
 import java.net.URLEncoder
 import javax.inject.Inject
 
@@ -210,11 +217,37 @@ internal class ProjectRemoteDataSourceImpl @Inject constructor(
         }
     }
 
+    override suspend fun getProjectMembers(projectId: Long): List<ProjectMemberEntity> {
+        return try {
+            projectApi.getProjectMembers(projectId).let {
+                it.map(ProjectMember::asEntity)
+            }
+        } catch (e: Exception) {
+            throw converterException(e)
+        }
+    }
+
+    override suspend fun kickProjectMember(projectId: Long, memberId: Int, kickReasons: List<KickReason>): UserEntity {
+        return try {
+            projectApi.kickProjectMember(
+                params = mapOf(
+                    KEY_PROJECT_ID to projectId,
+                    KEY_PROJECT_MEMBER_ID to memberId,
+                    KEY_PROJECT_KICK_REASON to kickReasons
+                )
+            ).asEntity()
+        } catch (e: Exception) {
+            throw converterException(e)
+        }
+    }
+
     companion object {
         private const val KEY_PROJECT_ID = "projectId"
         private const val KEY_PROJECT_ENROLLMENT_PART = "part"
         private const val KEY_PROJECT_ENROLLMENT_REASON = "message"
         private const val KEY_PROJECT_REPORT_REASON = "reason"
         private const val KEY_PROJECT_BANNER = "banner"
+        private const val KEY_PROJECT_MEMBER_ID = "memberId"
+        private const val KEY_PROJECT_KICK_REASON = "kickReasons"
     }
 }

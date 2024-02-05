@@ -19,6 +19,7 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 @AndroidEntryPoint
 class ProjectDetailIntroductionFragment : BaseFragment<FragmentProjectDetailIntroductionBinding>(R.layout.fragment_project_detail_introduction) {

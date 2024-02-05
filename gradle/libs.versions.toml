@@ -105,8 +105,8 @@ android-material = { group = "com.google.android.material", name = "material", v
 
 # Android ETC
 android-desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "androidDesugarJdkLibs" } # coreLibraryDesugaring
-
-# ETC
+#
+## ETC
 powerspinner = { group = "com.github.skydoves", name = "powerspinner", version.ref = "powerspinner" }
 retrofit-core = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 retrofit-converter-moshi = { group = "com.squareup.retrofit2", name = "converter-moshi", version.ref = "retrofit" }

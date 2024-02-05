@@ -1,5 +1,6 @@
 package com.connectcrew.data.service
 
+import com.connectcrew.data.model.project.KickReason
 import com.connectcrew.data.model.project.ProjectFeed
 import com.connectcrew.data.model.project.ProjectFeedDetail
 import com.connectcrew.data.model.project.ProjectFeedLikeInfo
@@ -7,6 +8,8 @@ import com.connectcrew.data.model.project.ProjectId
 import com.connectcrew.data.model.project.ProjectInfoContainer
 import com.connectcrew.data.model.project.RequestRecruitStatus
 import okhttp3.MultipartBody
+import com.connectcrew.data.model.project.ProjectMember
+import com.connectcrew.data.model.user.User
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -88,4 +91,10 @@ internal interface ProjectApi {
 
     @DELETE("project/{projectId}/delete")
     suspend fun deleteProjectFeed(@Path("projectId") projectId: Long)
+
+    @GET("project/members/{projectId}")
+    suspend fun getProjectMembers(@Path("projectId") projectId: Long): List<ProjectMember>
+
+    @POST("project/kick")
+    suspend fun kickProjectMember(@Body params: Any): User
 }

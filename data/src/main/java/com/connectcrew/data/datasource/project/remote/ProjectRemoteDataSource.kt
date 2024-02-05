@@ -1,10 +1,14 @@
 package com.connectcrew.data.datasource.project.remote
 
+import com.connectcrew.data.model.project.KickReason
 import com.connectcrew.data.model.project.RequestRecruitStatus
+import com.connectcrew.data.model.user.User
 import com.connectcrew.domain.usecase.project.entity.ProjectFeedDetailEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectFeedEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectFeedLikeInfoEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectInfoContainerEntity
+import com.connectcrew.domain.usecase.project.entity.ProjectMemberEntity
+import com.connectcrew.domain.usecase.sign.entity.UserEntity
 
 internal interface ProjectRemoteDataSource {
 
@@ -66,4 +70,12 @@ internal interface ProjectRemoteDataSource {
     suspend fun deleteProjectFeed(projectId: Long)
 
     suspend fun createProjectReport(projectId: Long, reportReason: String)
+
+    suspend fun getProjectMembers(projectId: Long): List<ProjectMemberEntity>
+
+    suspend fun kickProjectMember(
+        projectId: Long,
+        memberId: Int,
+        kickReasons: List<KickReason>
+    ): UserEntity
 }

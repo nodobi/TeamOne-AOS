@@ -34,6 +34,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 @AndroidEntryPoint
 class ProjectDetailContainerFragment : BaseFragment<FragmentProjectDetailContainerBinding>(R.layout.fragment_project_detail_container) {
@@ -48,6 +49,8 @@ class ProjectDetailContainerFragment : BaseFragment<FragmentProjectDetailContain
 
     private val pagedChangeCallback = object : ViewPager2.OnPageChangeCallback() {
         override fun onPageSelected(position: Int) {
+            Timber.d("onPageSelected: Position: $position")
+            Timber.d("current Destination| ${findNavController().currentDestination.toString()}")
             projectDetailContainerViewModel.setSelectedProjectDetailCategory(
                 when (position) {
                     0 -> ProjectFeedDetailCategory.INTRODUCTION

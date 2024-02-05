@@ -248,7 +248,7 @@ class HomeCategoryViewHolder(
                             categoryBgStrokeWidth = R.color.color_eeeeee,
                             categoryIconRes = R.drawable.ic_category_etc,
                             categoryIconColor = R.color.color_424242,
-                            categoryTextRes = R.string.category_etc
+                            categoryTextRes = R.string.common_etc
                         )
                     } else {
                         setCategoryColor(
@@ -257,7 +257,7 @@ class HomeCategoryViewHolder(
                             categoryBgStrokeWidth = R.color.color_eeeeee,
                             categoryIconRes = R.drawable.ic_category_etc,
                             categoryIconColor = R.color.color_9e9e9e,
-                            categoryTextRes = R.string.category_etc
+                            categoryTextRes = R.string.common_etc
                         )
                     }
                 }
